@@ -1,6 +1,3 @@
-# Scalable-High-Availability-Backend
-Performance analysis of scalable and high-availability backend architecture using Spring Boot, Nginx, and k6.
-
 # 🚀 고가용성 백엔드 아키텍처 설계 및 성능 검증 프로젝트
 
 본 프로젝트는 트래픽 증가에 유연하게 대응할 수 있는 **수평 확장(Scale-out) 가능한 고가용성 백엔드 시스템**을 설계하고, 실제 지표(TPS, Latency)를 통해 그 효용성을 검증하는 것을 목표로 합니다.
