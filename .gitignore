@@ -1,0 +1,54 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+
+### Custom for Graduation Project ###
+# 로그 파일 (서버 실행 시 생성되는 로그 제외)
+*.log
+
+# OS 관련 (맥/윈도우 시스템 파일)
+.DS_Store
+Thumbs.db
+
+# 로컬 환경 설정 (DB 비번 등이 들어갈 수 있는 파일)
+.env
+application-local.properties
+/src/main/resources/application-local.properties
+
+# Docker 관련 (로컬 데이터 저장소 제외)
+/mysql_data/

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>방문자 명단</title>
+    <style>
+        body { font-family: sans-serif; padding: 50px; }
+        table { border-collapse: collapse; width: 300px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+<h1>방문자 명단 (DB 연결됨)</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>이름</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="visitor : ${visitors}">
+        <td th:text="${visitor.id}">1</td>
+        <td th:text="${visitor.name}">홍길동</td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<button onclick="location.reload()">새로고침</button>
+</body>
+</html>
