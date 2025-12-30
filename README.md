@@ -23,7 +23,3 @@
 # 추후 작성 예정
 docker-compose up -d
 ```
-
-```
-
-git push -u origin main
