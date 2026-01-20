@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # 1. 데이터베이스
+  db:
+    image: mysql:8.0
+    container_name: mysql-container
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_DATABASE: "testdb"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  # 2. 첫 번째 서버 (8080 포트)
+  app1:
+    build: .
+    container_name: spring-app-1
+    ports:
+      - "8080:8080"     # 왼쪽이 내 컴퓨터 접속 포트, 오른쪽이 도커 내부(Tomcat) 포트
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/testdb?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    depends_on:
+      - db
+
+  # 3. 두 번째 서버 (8081 포트) - 나중에 Nginx 붙일 때 활성화
+  # app2:
+  #   ... (여기는 내일 같이 작성해요!)
