@@ -38,6 +38,11 @@ dependencies {
 
 	// 타임리프
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// 앱의 상태 지표를 생성하는 핵심 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // 생성된 지표를 Prometheus가 읽을 수 있는 포맷으로 변환
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 }
 
 tasks.named('test') {
