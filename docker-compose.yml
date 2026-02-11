@@ -67,8 +67,8 @@ services:
     volumes:
       - grafana-storage:/var/lib/grafana
 
-  volumes:
-    grafana-storage:
+volumes:
+  grafana-storage:
   # 3. 두 번째 서버 (8081 포트) - 나중에 Nginx 붙일 때 활성화
   # app2:
   #   ... (여기는 내일 같이 작성해요!)
