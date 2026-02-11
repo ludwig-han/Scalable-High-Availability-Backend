@@ -2,31 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>방문자 명단</title>
+    <title>Scalable System Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; padding: 50px; }
-        table { border-collapse: collapse; width: 300px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
+        :root { --primary: #4A90E2; --bg: #F8F9FA; --card: #ffffff; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: var(--card); padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 450px; text-align: center; }
+        h1 { color: #333; margin-bottom: 0.5rem; font-size: 1.8rem; }
+        p { color: #666; margin-bottom: 2rem; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 2rem; }
+        input { flex: 1; padding: 12px 15px; border: 2px solid #eee; border-radius: 12px; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--primary); }
+        button { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #357ABD; transform: translateY(-2px); }
+        .visitor-list { text-align: left; background: #fdfdfd; border-radius: 12px; padding: 10px; max-height: 200px; overflow-y: auto; border: 1px solid #f0f0f0; }
+        .visitor-item { padding: 10px; border-bottom: 1px solid #eee; color: #444; display: flex; justify-content: space-between; }
+        .visitor-item:last-child { border-bottom: none; }
+        .badge { background: #E1F5FE; color: #01579B; padding: 2px 8px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
+        .footer { margin-top: 2rem; font-size: 0.85rem; color: #999; }
+        .server-tag { color: var(--primary); font-weight: bold; }
     </style>
 </head>
 <body>
-<h1>방문자 명단 (DB 연결됨)</h1>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>이름</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="visitor : ${visitors}">
-        <td th:text="${visitor.id}">1</td>
-        <td th:text="${visitor.name}">홍길동</td>
-    </tr>
-    </tbody>
-</table>
-<br>
-<button onclick="location.reload()">새로고침</button>
+<div class="container">
+    <h1>🎓 Scalable Backend</h1>
+    <p>고가용성 아키텍처 데모 서버</p>
+
+    <form action="/join" method="get" class="input-group">
+        <input type="text" name="name" placeholder="방문자 이름을 입력하세요" required>
+        <button type="submit">등록</button>
+    </form>
+
+    <div class="visitor-list">
+        <div th:each="visitor : ${visitors}" class="visitor-item">
+            <span th:text="${visitor.name}">이름</span>
+            <span class="badge">Visited</span>
+        </div>
+        <div th:if="${#lists.isEmpty(visitors)}" style="text-align: center; color: #ccc; padding: 20px;">
+            첫 번째 방문자가 되어보세요!
+        </div>
+    </div>
+
+    <div class="footer">
+        현재 응답 서버: <span class="server-tag">Primary Server (Instance 1)</span>
+    </div>
+</div>
 </body>
 </html>
