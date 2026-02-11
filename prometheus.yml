@@ -1,0 +1,14 @@
+global:
+  scrape_interval: 15s # 15초마다 수집
+
+scrape_configs:
+  # 1. 스프링 앱 지표 수집
+  - job_name: 'spring-boot-app'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['app1:8080'] # 도커 서비스 이름 사용
+
+  # 2. 서버 자원 지표 수집
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
