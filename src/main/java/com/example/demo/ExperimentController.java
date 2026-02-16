@@ -2,6 +2,8 @@ package com.example.demo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,5 +38,15 @@ public class ExperimentController {
     @GetMapping("/db")
     public List<Visitor> dbLoad() {
         return visitorRepository.findAll();
+    }
+
+    @GetMapping("/setup")
+    public String setupData() {
+        List<Visitor> bulk = new ArrayList<>();
+        for (int i = 0; i < 5000; i++) {
+            bulk.add(new Visitor("User-" + i));
+        }
+        visitorRepository.saveAll(bulk);
+        return "5000 rows inserted!";
     }
 }
