@@ -1,11 +1,9 @@
 package com.example.demo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -17,7 +15,10 @@ public class Visitor {
 
     private String name;
 
+    private LocalDateTime visitedAt;
+
     public Visitor(String name) {
         this.name = name;
+        this.visitedAt = LocalDateTime.now();
     }
 }
