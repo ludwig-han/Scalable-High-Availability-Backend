@@ -22,7 +22,7 @@ public class LoadTestController {
      */
     @GetMapping("/light")
     public String light() {
-        return "ok\n";
+        return "ok\n`";
     }
 
     /**
@@ -30,12 +30,12 @@ public class LoadTestController {
      * 복잡한 수학 연산을 반복하여 서버의 CPU 점유율을 강제로 높입니다.
      */
     @GetMapping("/cpu")
-    public double cpu() {
+    public String cpu() {
         double result = 0;
         for (int i = 0; i < 1_000_000; i++) {
             result += Math.atan(Math.sqrt(i));
         }
-        return result + "\n";
+        return String.valueOf(result) + "\n";
     }
 
     /**
