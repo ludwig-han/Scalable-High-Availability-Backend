@@ -22,7 +22,7 @@ public class LoadTestController {
      */
     @GetMapping("/light")
     public String light() {
-        return "ok";
+        return "ok\n";
     }
 
     /**
@@ -35,7 +35,7 @@ public class LoadTestController {
         for (int i = 0; i < 1_000_000; i++) {
             result += Math.atan(Math.sqrt(i));
         }
-        return result;
+        return result + "\n";
     }
 
     /**
@@ -46,7 +46,7 @@ public class LoadTestController {
     public String ioWait() throws InterruptedException {
         // 0.5초 동안 일꾼(Thread)을 붙잡아 둡니다.
         Thread.sleep(500);
-        return "delayed ok";
+        return "delayed ok\n";
     }
 
     /**
