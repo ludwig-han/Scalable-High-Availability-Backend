@@ -22,7 +22,7 @@ public class LoadTestController {
      */
     @GetMapping("/light")
     public String light() {
-        return "ok\n`";
+        return "ok\n";
     }
 
     /**
@@ -66,6 +66,6 @@ public class LoadTestController {
     @GetMapping("/db-read")
     public List<TestData> dbRead() {
         log.info("Reading all data from MySQL...");
-        return testDataRepository.findAll();
+        return testDataRepository.findAll(PageRequest.of(0, 100)).getContent();
     }
 }
