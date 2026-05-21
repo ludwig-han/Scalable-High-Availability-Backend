@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # 1. 스프링 부트 애플리케이션
+  app1:
+    build: ../../
+    container_name: spring-app-1
+    ports:
+      - "8080:8080"
+    environment:
+      # ⭐ 중요: localhost나 db가 아니라, 나중에 만들 'EC2 인스턴스 2의 IP'를 넣어야 합니다.
+      # (같은 VPC 내부망이라면 Private IP를, 다른 망이라면 Public IP를 입력)
+      SPRING_DATASOURCE_URL: jdbc:mysql://3.36.44.8:3306/testdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "1234"
+    restart: always
+
+  # 2. 서버 하드웨어 지표 측정기
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+    ports:
+      - "9100:9100"
