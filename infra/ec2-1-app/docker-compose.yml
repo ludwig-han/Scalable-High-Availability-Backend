@@ -10,9 +10,13 @@ services:
     environment:
       # ⭐ 중요: localhost나 db가 아니라, 나중에 만들 'EC2 인스턴스 2의 IP'를 넣어야 합니다.
       # (같은 VPC 내부망이라면 Private IP를, 다른 망이라면 Public IP를 입력)
-      SPRING_DATASOURCE_URL: jdbc:mysql://3.36.44.8:3306/testdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.31.55.77:3306/testdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: "1234"
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "prometheus,metrics,health"
+      MANAGEMENT_ENDPOINT_METRICS_ENABLED: "true"
+      MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED: "true"
+      MANAGEMENT_METRICS_TAGS_APPLICATION: "spring-boot-app"
     restart: always
 
   # 2. 서버 하드웨어 지표 측정기
