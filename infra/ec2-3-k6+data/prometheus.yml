@@ -2,18 +2,22 @@ global:
   scrape_interval: 5s
 
 scrape_configs:
-  # 1. 인스턴스 1에서 돌고 있는 스프링 앱 지표 수집
+  # 1. 인스턴스 1 및 인스턴스 4의 스프링 앱 지표 수집
   - job_name: 'spring-boot-app'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['172.31.63.124:8080']
+      - targets: 
+          - '172.31.63.124:8080'  # 인스턴스 1
+          - '172.31.55.56:8080' # 인스턴스 4
 
-  # 2. 인스턴스 1의 서버 자원(actuator / node exporter) 지표 수집
+  # 2. 인스턴스 1 및 인스턴스 4의 서버 하드웨어 자원 지표 수집
   - job_name: 'node-exporter'
     static_configs:
-      - targets: ['172.31.63.124:9100']
+      - targets: 
+          - '172.31.63.124:9100'  # 인스턴스 1
+          - '172.31.55.56:9100' # 인스턴스 4
 
-  # ⭐ 3. 인스턴스 2 (MySQL / node exporter)의 서버 자원 지표 수집
+  # 3. 인스턴스 2 (MySQL / node exporter)의 서버 자원 지표 수집
   - job_name: 'node-exporter-ec2-2'
     static_configs:
       - targets: [ '172.31.55.77:9100' ]

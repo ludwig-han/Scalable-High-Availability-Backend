@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # 1. 스프링 부트 애플리케이션 2 (인스턴스 4)
+  app2:
+    # 만약 인스턴스 4에도 소스코드가 다 복사되어 있다면 build를 그대로 쓰고,
+    # 만약 빌드된 이미지를 도커 허브 등에서 당겨온다면 image: <이미지명> 으로 바꾸셔도 됩니다.
+    build: ../../
+    container_name: spring-app-2
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.31.55.77:3306/testdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "1234"
+      
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "50"
+      
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "prometheus,metrics,health,configprops"
+      MANAGEMENT_ENDPOINT_METRICS_ENABLED: "true"
+      MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED: "true"
+      
+      # ⭐ 중요: 그라파나에서 앱 1과 앱 2의 메트릭을 구별할 수 있도록 태그명을 변경합니다.
+      MANAGEMENT_METRICS_TAGS_APPLICATION: "spring-boot-app-2"
+
+      # 톰캣 스레드 제한 역시 50개로 동일하게 통제합니다.
+      SERVER_TOMCAT_THREADS_MAX: "50"
+      SERVER_TOMCAT_THREADS_MIN_SPARE: "10"
+      SERVER_TOMCAT_MAX_CONNECTIONS: "500"
+      SERVER_TOMCAT_ACCEPT_COUNT: "100"
+      
+    restart: always
+
+  # 2. 인스턴스 4 하드웨어 지표 측정기
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+    ports:
+      - "9100:9100"
