@@ -11,7 +11,7 @@ export const options = {
 export default function () {
   // 1부터 100000 사이의 무작위 숫자를 생성하여 매번 다른 키워드를 조회하게 만듭니다.
   // 예: Item_Name_54321, Item_Name_12
-  const randomNum = Math.floor(Math.random() * 100000) + 1;
+  const randomNum = Math.floor(Math.random() * 10000) + 1;
   const url = `http://172.31.51.155:80/api/v1/search?keyword=Item_Name_${randomNum}`;
   
   const res = http.get(url);
