@@ -13,6 +13,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://172.31.55.77:3306/testdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: "1234"
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "50"
+      
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "prometheus,metrics,health, configprops"
       MANAGEMENT_ENDPOINT_METRICS_ENABLED: "true"
       MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED: "true"
@@ -22,6 +24,7 @@ services:
       SERVER_TOMCAT_THREADS_MIN_SPARE: "10"
       SERVER_TOMCAT_MAX_CONNECTIONS: "500"
       SERVER_TOMCAT_ACCEPT_COUNT: "100"
+      
     restart: always
 
   # 2. 서버 하드웨어 지표 측정기
