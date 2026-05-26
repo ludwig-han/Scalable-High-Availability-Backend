@@ -9,7 +9,14 @@ export const options = {
 };
 
 export default function () {
-  const res = http.get('http://3.36.47.190:8080/api/v1/search?keyword=패키지');
-  check(res, { 'status is 200': (r) => r.status === 200 });
-  sleep(0.1); 
+  // 1부터 100000 사이의 무작위 숫자를 생성하여 매번 다른 키워드를 조회하게 만듭니다.
+  // 예: Item_Name_54321, Item_Name_12
+  const randomNum = Math.floor(Math.random() * 100000) + 1;
+  const url = `http://172.31.63.124:8080/api/v1/search?keyword=Item_Name_${randomNum}`;
+  
+  const res = http.get(url);
+  
+  check(res, {
+    'status is 200': (r) => r.status === 200,
+  });
 }
